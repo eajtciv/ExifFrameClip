@@ -1,7 +1,7 @@
 # ExifFrameClip
 
 ExifTool( https://exiftool.org/ )を使用したExifFrame生成ツール  
-画像ビューワーの実行からExifFrame生成する為のもの
+画像ビューワーの実行からExifFrame画像を生成しクリップボードにコピーする為のもの
 
 実行必須要件: ExifToolにPATHが通っている or カレントディレクトリにExifToolが存在する
 
