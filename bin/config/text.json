@@ -1,0 +1,38 @@
+{
+  "TextOnly": true,
+  "Replace":{
+    "FocalLengthIn35mmFormat":{
+      " ": "",
+    },
+    "DateTimeOriginal":{
+      "^([0-9]+):([0-9]+):([0-9]+) ([0-9]+):([0-9]+):([0-9]+)":"$1-$2-$3",
+    },
+    "Model":{
+      "ALPHA-7 DIGITAL":"α-7 DIGITAL",
+    },
+    "Make":{
+      "^RICOH IMAGING COMPANY, LTD.$":"",
+			"^NIKON CORPORATION$":"",
+    }
+  },
+  "Label": [
+    {
+			"MatchTest": "!<*Make>!=",
+      "Format": "<Model>"
+    },{
+			"MatchTest": "<*Make>!=",
+      "Format": "<Make> <Model>"
+    },{
+      "MatchTest": "<Make>==NIKON CORPORATION",
+      "Format": "<LensID>"
+    },{
+      "MatchTest": "<Make>!=NIKON CORPORATION",
+      "Format": "<LensType>"
+    },{
+      "MatchTest": "<FocalLengthIn35mmFormat>!=&&<FNumber>!=&&<ExposureTime>!=",
+      "Format": "<FocalLengthIn35mmFormat> <ExposureTime>s F<FNumber> ISO<ISO>"
+    },{
+      "Format": "<DateTimeOriginal>"
+    }
+  ]
+}

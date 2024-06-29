@@ -1,0 +1,70 @@
+{
+  "FrameColor": "#1d2324",
+  "OverlayColor": "00000000",
+  "FrameRatio": 0,
+  "CopyMode": true,
+  "CopyModeJpegQuality": 90,
+  "Replace":{
+    "FocalLengthIn35mmFormat":{
+      " ": "",
+    },
+    "DateTimeOriginal":{
+      "[0-9]+:[0-9]+:[0-9]+$":"",
+      " ":"",
+      ":":"-"
+    }
+  },
+  "Label": [
+    {
+      "FontName": "Source Sans Pro",
+      "FontBold": false,
+      "FontSize": 0.7,
+      "FontColor": "#00000000",
+      "Format": "DUMMY",
+      "AfterSpace": -2.5
+    },{
+      "FontName": "Source Sans Pro",
+      "FontBold": false,
+      "FontSize": 0.7,
+      "Alignment": "RIGHT",
+      "FontColor": "#ffffff",
+      "Format": "ExifFrameClip",
+      "AfterSpace": 1
+    },{
+      "MatchTest": "<Make>==NIKON CORPORATION",
+      "FontName": "Source Sans Pro",
+      "Alignment": "LEFT",
+      "FontBold": true,
+      "FontSize": 0.5,
+      "FontColor": "#e1e1e1",
+      "Format": "<Make>  <Model><  /  +LensID+>",
+      "AfterSpace": 0.25
+    },{
+      "MatchTest": "NIKON CORPORATION!=<Make>",
+      "FontName": "Source Sans Pro",
+      "Alignment": "LEFT",
+      "FontBold": true,
+      "FontSize": 0.5,
+      "FontColor": "#e1e1e1",
+      "Format": "<Make>  <Model><  /  +LensType+>",
+      "AfterSpace": 0.25
+    },{
+      "MatchTest": "<FocalLengthIn35mmFormat>!=&&<FNumber>!=&&<ExposureTime>!=",
+      "FontName": "Source Sans Pro",
+      "Alignment": "LEFT",
+      "FontBold": false,
+      "FontSize": 0.5,
+      "FontColor": "#a1a1a1",
+      "Format": "<FocalLengthIn35mmFormat>  F<FNumber>  <ExposureTime>s  ISO<ISO>",
+      "AfterSpace": -1
+    },{
+      "FontName": "Source Sans Pro",
+      "Alignment": "RIGHT",
+      "FontBold": false,
+      "FontSize": 0.5,
+      "FontColor": "#a1a1a1",
+      "Format": "<DateTimeOriginal>",
+      "AfterSpace": 0.7
+    }
+  ]
+}
