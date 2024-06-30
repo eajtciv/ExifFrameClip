@@ -121,7 +121,7 @@ public class ExifFrameClip {
       foreach(JsonUtil label in labels){
         string MatchTest = label["MatchTest"]?.GetString();
         if(MatchTest != null && !Regex.Split(MatchTest, "(?<!\\\\\\\\)\\&\\&").Select(j => j.Replace("\\\\&","&")).All( i => {
-          string[] m = Regex.Match(i, "(.*)([=!]=)(.*)").Groups.Cast<Group>().Select(j => FormatExifText(j.ToString(), exif, (j.ToString().StartsWith("*")?ReplaceMap:null))).ToArray();
+          string[] m = Regex.Match(i, "(.*)([=!]=)(.*)").Groups.Cast<Group>().Select(j => FormatExifText(j.ToString(), exif, ReplaceMap)).ToArray();
           return (m.Length==4)&&((m[2]=="=="&&m[1]==m[3])||(m[2]=="!="&&m[1]!=m[3]));
         })) continue;
         string text = FormatExifText(label["Format"].GetString(), exif, ReplaceMap);
@@ -147,8 +147,8 @@ public class ExifFrameClip {
   
   
   private static string FormatExifText(string format, JsonUtil exif, Dictionary<string, Dictionary<string,string>> replaceMap){
-    return Regex.Replace(format, "<\\*?([^>]+)>", i => {
-      string _keyword = i.Groups[1].ToString(), _prefix=string.Empty, _suffix=string.Empty;
+    return Regex.Replace(format, "<(\\*)?([^>]+)>", i => {
+      string _keyword = i.Groups[2].ToString(), _prefix=string.Empty, _suffix=string.Empty;
       string[] _orKeys = Regex.Split(_keyword, "(?<!\\\\\\\\)\\|").Select(j => j.Replace("\\\\|","|")).ToArray();
       foreach(string k in _orKeys){
         string _key = k;
@@ -161,7 +161,7 @@ public class ExifFrameClip {
         string temp = exif[_key]?.GetString()?.Trim();
         if(temp != null){
           //ReplaceMap
-          if(replaceMap != null && replaceMap.ContainsKey(_key))
+          if(replaceMap != null && "*".Equals(i.Groups[1].ToString()) && replaceMap.ContainsKey(_key))
             foreach(KeyValuePair<string, string> kvp in replaceMap[_key])
               temp = Regex.Replace(temp, kvp.Key, kvp.Value);//Regex.Escape(
           temp = _prefix+temp+_suffix;
