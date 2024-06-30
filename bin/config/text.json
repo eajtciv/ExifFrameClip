@@ -17,7 +17,7 @@
   },
   "Label": [
     {
-			"MatchTest": "!<*Make>!=",
+			"MatchTest": "<*Make>==",
       "Format": "<Model>"
     },{
 			"MatchTest": "<*Make>!=",
