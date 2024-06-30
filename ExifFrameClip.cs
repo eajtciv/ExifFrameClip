@@ -31,7 +31,7 @@ public class ExifFrameClip {
   private static bool TextOnly;
   
   private static void LoadConfig(){
-    Match m = Regex.Match(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location),"\\[([^\\]]+)\\]", RegexOptions.IgnoreCase);
+    Match m = Regex.Match(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location),"[\\[\\(]([^\\]\\)]+)[\\)\\]]", RegexOptions.IgnoreCase);
     string configFileName = (m.Success ? m.Groups[1].ToString() : "default.json");
     string configFile = Path.Combine(Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName, Path.Combine("config",configFileName));
     JsonUtil config = File.Exists(configFile) ? JsonUtil.FromString(Regex.Replace(File.ReadAllText(configFile),"\r\n[ \t]*//.*","\r\n", RegexOptions.Multiline)) : JsonUtil.FromString("{}");
