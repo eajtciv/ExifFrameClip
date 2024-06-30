@@ -125,7 +125,7 @@ public class ExifFrameClip {
           return (m.Length==4)&&((m[2]=="=="&&m[1]==m[3])||(m[2]=="!="&&m[1]!=m[3]));
         })) continue;
         string text = FormatExifText(label["Format"].GetString(), exif, ReplaceMap);
-				if(builder.Length > 0) builder.AppendLine();
+        if(builder.Length > 0) builder.AppendLine();
         builder.Append(text);
         if(FrameSize!=0){
           StringFormat stringFormat = new StringFormat();

@@ -12,15 +12,15 @@
     },
     "Make":{
       "^RICOH IMAGING COMPANY, LTD.$":"",
-			"^NIKON CORPORATION$":"",
+      "^NIKON CORPORATION$":"",
     }
   },
   "Label": [
     {
-			"MatchTest": "<*Make>==",
+      "MatchTest": "<*Make>==",
       "Format": "<Model>"
     },{
-			"MatchTest": "<*Make>!=",
+      "MatchTest": "<*Make>!=",
       "Format": "<Make> <Model>"
     },{
       "MatchTest": "<Make>==NIKON CORPORATION",
