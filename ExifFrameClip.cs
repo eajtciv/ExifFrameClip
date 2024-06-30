@@ -22,6 +22,7 @@ public class ExifFrameClip {
   private static double FrameRatio;
   private static List<JsonUtil> labels;
   private static bool CopyMode;
+  private static bool TextDialogOnly;
   private static int QualityParamJPEG;
   private static Dictionary<string, StringAlignment> StringAlignments = new Dictionary<string, StringAlignment>(){
     {"LEFT", StringAlignment.Near},
@@ -34,7 +35,7 @@ public class ExifFrameClip {
     Match m = Regex.Match(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location),"[\\[\\(]([^\\]\\)]+)[\\)\\]]", RegexOptions.IgnoreCase);
     string configFileName = (m.Success ? m.Groups[1].ToString() : "default.json");
     string configFile = Path.Combine(Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName, Path.Combine("config",configFileName));
-		configFile = File.Exists(configFile) ? configFile : configFile + ".json";
+    configFile = File.Exists(configFile) ? configFile : configFile + ".json";
     JsonUtil config = File.Exists(configFile) ? JsonUtil.FromString(Regex.Replace(File.ReadAllText(configFile),"\r\n[ \t]*//.*","\r\n", RegexOptions.Multiline)) : JsonUtil.FromString("{}");
     ReplaceMap = config["Replace"] != null ? config["Replace"].GetDictionary().ToDictionary(kvp => kvp.Key, kvp => kvp.Value.GetDictionary().ToDictionary(kvp2 => kvp2.Key, kvp2 => kvp2.Value.GetString())) : new Dictionary<string, Dictionary<string,string>>();
     FrameColor = ColorTranslator.FromHtml(config["FrameColor"]?.GetString() ?? "#FFFFFF");
@@ -44,6 +45,7 @@ public class ExifFrameClip {
     labels = config["Label"].GetList();
     QualityParamJPEG = config["CopyModeJpegQuality"]?.GetInt() ?? 90;
     TextOnly = config["TextOnly"]?.GetBool() ?? false;
+    TextDialogOnly = config["TextDialogOnly"]?.GetBool() ?? false;
   }
 
   [STAThread]
@@ -62,6 +64,12 @@ public class ExifFrameClip {
       var labelArea = DrawLabels(null ,json, 0, 0);
       DataObject data = new DataObject(DataFormats.Text, labelArea.Text);
       Clipboard.SetDataObject(data, true);
+      return;
+    }
+		
+    if(TextDialogOnly){
+      var labelArea = DrawLabels(null ,json, 0, 0);
+      MessageBox.Show(labelArea.Text,"ExifFrameClip",MessageBoxButtons.OK,MessageBoxIcon.None);
       return;
     }
     
