@@ -1,0 +1,8 @@
+{
+  "TextDialogOnly": true,
+  "Label": [
+    {
+      "Format": "ShutterCount: <ShutterCount>"
+    }
+  ]
+}
