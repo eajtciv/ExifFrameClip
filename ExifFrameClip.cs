@@ -15,6 +15,7 @@ using SanyoLib;
 /*
  * version 0.0.1 sanyo[JP]
  */
+[assembly: AssemblyTitle("ExifFrameClip")]
 public class ExifFrameClip {
   private static Dictionary<string, Dictionary<string,string>> ReplaceMap;
   private static Color FrameColor;
@@ -66,7 +67,7 @@ public class ExifFrameClip {
       Clipboard.SetDataObject(data, true);
       return;
     }
-		
+    
     if(TextDialogOnly){
       var labelArea = DrawLabels(null ,json, 0, 0);
       MessageBox.Show(labelArea.Text,"ExifFrameClip",MessageBoxButtons.OK,MessageBoxIcon.None);
