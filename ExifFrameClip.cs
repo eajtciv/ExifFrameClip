@@ -34,6 +34,7 @@ public class ExifFrameClip {
     Match m = Regex.Match(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location),"[\\[\\(]([^\\]\\)]+)[\\)\\]]", RegexOptions.IgnoreCase);
     string configFileName = (m.Success ? m.Groups[1].ToString() : "default.json");
     string configFile = Path.Combine(Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName, Path.Combine("config",configFileName));
+		configFile = File.Exists(configFile) ? configFile : configFile + ".json";
     JsonUtil config = File.Exists(configFile) ? JsonUtil.FromString(Regex.Replace(File.ReadAllText(configFile),"\r\n[ \t]*//.*","\r\n", RegexOptions.Multiline)) : JsonUtil.FromString("{}");
     ReplaceMap = config["Replace"] != null ? config["Replace"].GetDictionary().ToDictionary(kvp => kvp.Key, kvp => kvp.Value.GetDictionary().ToDictionary(kvp2 => kvp2.Key, kvp2 => kvp2.Value.GetString())) : new Dictionary<string, Dictionary<string,string>>();
     FrameColor = ColorTranslator.FromHtml(config["FrameColor"]?.GetString() ?? "#FFFFFF");
